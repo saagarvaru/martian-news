@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3336664D22ED041F009CE02C /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3336664C22ED041F009CE02C /* Article.swift */; };
+		3336664F22ED0530009CE02C /* ArticleAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3336664E22ED0530009CE02C /* ArticleAPI.swift */; };
+		3336665122ED12EF009CE02C /* NotificationNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3336665022ED12EF009CE02C /* NotificationNames.swift */; };
 		C3D2D3981CB7F9540049D449 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D2D3971CB7F9540049D449 /* AppDelegate.swift */; };
 		C3D2D39D1CB7F9540049D449 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C3D2D39B1CB7F9540049D449 /* Main.storyboard */; };
 		C3D2D39F1CB7F9540049D449 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3D2D39E1CB7F9540049D449 /* Assets.xcassets */; };
@@ -32,6 +35,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3336664C22ED041F009CE02C /* Article.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
+		3336664E22ED0530009CE02C /* ArticleAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleAPI.swift; sourceTree = "<group>"; };
+		3336665022ED12EF009CE02C /* NotificationNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationNames.swift; sourceTree = "<group>"; };
 		C3D2D3941CB7F9540049D449 /* MartianNewsReader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MartianNewsReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3D2D3971CB7F9540049D449 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C3D2D39C1CB7F9540049D449 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -64,6 +70,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3336664B22ED0410009CE02C /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				3336664C22ED041F009CE02C /* Article.swift */,
+				3336664E22ED0530009CE02C /* ArticleAPI.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		C3D2D38B1CB7F9540049D449 = {
 			isa = PBXGroup;
 			children = (
@@ -85,8 +100,10 @@
 		C3D2D3961CB7F9540049D449 /* MartianNewsReader */ = {
 			isa = PBXGroup;
 			children = (
+				3336664B22ED0410009CE02C /* Models */,
 				C3D2D3971CB7F9540049D449 /* AppDelegate.swift */,
 				C3D2D3B71CB7F9B10049D449 /* ArticleListController.swift */,
+				3336665022ED12EF009CE02C /* NotificationNames.swift */,
 				C3D2D3B91CB7F9B80049D449 /* ArticleListProvider.swift */,
 				C3D2D3BB1CB7F9C10049D449 /* ArticleViewController.swift */,
 				C3D2D39B1CB7F9540049D449 /* Main.storyboard */,
@@ -156,6 +173,7 @@
 				TargetAttributes = {
 					C3D2D3931CB7F9540049D449 = {
 						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = W4U9WD8DKN;
 						LastSwiftMigration = 0900;
 					};
 					C3D2D3A71CB7F9540049D449 = {
@@ -170,6 +188,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -213,6 +232,9 @@
 				C3D2D3C11CB7FB7C0049D449 /* ArticleViewController.swift in Sources */,
 				C3D2D3981CB7F9540049D449 /* AppDelegate.swift in Sources */,
 				C3D2D3BA1CB7F9B80049D449 /* ArticleListProvider.swift in Sources */,
+				3336665122ED12EF009CE02C /* NotificationNames.swift in Sources */,
+				3336664D22ED041F009CE02C /* Article.swift in Sources */,
+				3336664F22ED0530009CE02C /* ArticleAPI.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -364,6 +386,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = W4U9WD8DKN;
 				INFOPLIST_FILE = MartianNewsReader/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.nytimes.MartianNewsReader;
@@ -377,6 +400,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = W4U9WD8DKN;
 				INFOPLIST_FILE = MartianNewsReader/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.nytimes.MartianNewsReader;

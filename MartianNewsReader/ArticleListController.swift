@@ -7,34 +7,62 @@
 
 import UIKit
 
-final class ArticleListController: UITableViewController {
-    fileprivate let CellIdentifier = "Cell"
-
-    fileprivate let articleListProvider: ArticleListProvider
+class ArticleCell: UITableViewCell {
+    @IBOutlet weak var articleImageView: UIImageView!
     
-    override init(style: UITableViewStyle) {
+    @IBOutlet weak var articleTitleLabel: UILabel!
+    
+    func downloadImage(url: URL) {
+        ArticleAPI.imageManager.download(with: url) { image in
+            DispatchQueue.main.async {
+                self.articleImageView.image = image
+            }
+            
+        }
+    }
+}
+
+final class ArticleListController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    fileprivate let CellIdentifier = "Cell"
+    @IBOutlet weak var tableView: UITableView!
+    
+    @IBOutlet weak var languageSwitch: UISwitch!
+    
+    fileprivate var articleListProvider: ArticleListProvider
+    
+    override func viewDidLoad() {
         self.articleListProvider = ArticleListProvider()
-        
-        super.init(style:style)
+        self.tableView.rowHeight = UITableViewAutomaticDimension
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadTable(notification:)), name: .articleDataLoaded, object: nil)
+    }
+    
+    deinit {
+        // Clean up observer
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    func reloadTable(notification: Notification) {
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+
     }
     
     required init?(coder: NSCoder) {
         self.articleListProvider = ArticleListProvider()
-        
         super.init(coder: coder)
     }
     
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return articleListProvider.articleCount()
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier, for: indexPath)
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = self.tableView.dequeueReusableCell(withIdentifier: CellIdentifier, for: indexPath) as! ArticleCell
         
-        let _ = articleListProvider.articleAtIndex(indexPath.row)
-        
-        assertionFailure("Not yet implemented.")
-        
+        let article = articleListProvider.articleAtIndex(indexPath.row)
+        cell.downloadImage(url: URL(string: article!.images[0].url)!)
+        cell.articleTitleLabel?.text = article?.title
         return cell
     }
 }

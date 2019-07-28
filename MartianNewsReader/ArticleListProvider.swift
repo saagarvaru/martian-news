@@ -7,25 +7,34 @@
 
 import Foundation
 
+
 final class ArticleListProvider {
+    
+    private var articles: [Article]!
+    
     
     convenience init() {
         self.init(articles: [])
+        
+        // get aritcles
+        ArticleAPI.getData { articles in
+            self.articles = articles
+            NotificationCenter.default.post(name: .articleDataLoaded, object: articles)
+        }
     }
     
-    init(articles: [AnyObject]) {
-        assertionFailure("Not yet implemented.")
+    init(articles: [Article]) {
+        self.articles = articles
+        //assertionFailure("Not yet implemented.")
     }
     
     func articleCount() -> Int {
-        assertionFailure("Not yet implemented.")
-
-        return 0
+        return articles.count
     }
     
-    func articleAtIndex(_ index: Int) -> AnyObject? {
-        assertionFailure("Not yet implemented.")
-
-        return nil
+    func articleAtIndex(_ index: Int) -> Article? {
+        return articles[index]
     }
+    
+    
 }
