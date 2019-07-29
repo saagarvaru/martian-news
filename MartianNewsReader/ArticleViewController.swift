@@ -7,19 +7,36 @@
 
 import UIKit
 
-final class ArticleViewController: UIViewController {
+final class ArticleViewController: UIViewController, UIScrollViewDelegate {
     
-    let article: AnyObject?
+    var article: Article?
     
-    init(article: AnyObject) {
-        self.article = article
+    @IBOutlet var articleScrollView: UIScrollView!
+    @IBOutlet weak var articleImageView: UIImageView!
+    
+    @IBOutlet weak var articleTitleLabel: UILabel!
+    
+    @IBOutlet weak var articleBodyLabel: UILabel!
+    var articleImage: UIImage? = nil
+    
+    var translate = true
+    
+    override func viewDidLoad() {
+        self.navigationItem.title = article?.title
+        self.articleTitleLabel.text = article?.title
+        self.articleBodyLabel.text = article?.body
+        self.articleBodyLabel.sizeToFit()
+        ArticleAPI.imageManager.download(with: URL(string: (article?.images[0].url)!)!) { image in
+            self.articleImageView.image = image
+        }
+        self.articleScrollView.contentSize = articleScrollView.subviews.reduce(CGRect.zero,{
+            return $0.union($1.frame)
+        }).size
         
-        super.init(nibName: nil, bundle: nil)
-    }
+        if (self.translate) {
+            self.articleTitleLabel.text = TranslationHelper.translateToMartian(textToTranslate: article!.title)
+            self.articleBodyLabel.text = TranslationHelper.translateToMartian(textToTranslate: article!.body)
+        }
     
-    required init?(coder: NSCoder) {
-        self.article = nil
-        
-        super.init(coder: coder)
     }
 }

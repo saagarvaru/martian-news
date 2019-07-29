@@ -30,23 +30,38 @@ final class ArticleListController: UIViewController, UITableViewDelegate, UITabl
     
     fileprivate var articleListProvider: ArticleListProvider
     
+    private var isMartian = false
+    
     override func viewDidLoad() {
         self.articleListProvider = ArticleListProvider()
         self.tableView.rowHeight = UITableViewAutomaticDimension
         NotificationCenter.default.addObserver(self, selector: #selector(reloadTable(notification:)), name: .articleDataLoaded, object: nil)
     }
     
+    @IBAction func toggleLanguage(_ sender: Any) {
+        if self.isMartian {
+            self.isMartian = false
+        } else {
+            self.isMartian = true
+        }
+        reloadTable()
+    }
     deinit {
         // Clean up observer
         NotificationCenter.default.removeObserver(self)
     }
     
-    func reloadTable(notification: Notification) {
+    func reloadTable() {
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
-
     }
+    
+    func reloadTable(notification: Notification) {
+        reloadTable()
+    }
+    
+
     
     required init?(coder: NSCoder) {
         self.articleListProvider = ArticleListProvider()
@@ -62,7 +77,22 @@ final class ArticleListController: UIViewController, UITableViewDelegate, UITabl
         
         let article = articleListProvider.articleAtIndex(indexPath.row)
         cell.downloadImage(url: URL(string: article!.images[0].url)!)
-        cell.articleTitleLabel?.text = article?.title
+        if (!self.isMartian) {
+            cell.articleTitleLabel?.text = article?.title
+        } else {
+            cell.articleTitleLabel?.text = TranslationHelper.translateToMartian(textToTranslate: article!.title)
+        }
+        
         return cell
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "openArticle" {
+            let index = self.tableView.indexPathForSelectedRow?.row
+            let destination = segue.destination as? ArticleViewController
+            let article = articleListProvider.articleAtIndex(index!)
+            destination?.article = article
+            destination?.translate = self.isMartian
+        }
     }
 }
